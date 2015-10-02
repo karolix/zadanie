@@ -1,0 +1,261 @@
+<!doctype html>
+<html ng-app="App" >
+<head>
+
+  <title>Wykres danych z pliku JSON</title>
+
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js"></script>
+	<script src="app/app.js"></script>	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="libs/highcharts.js"></script>
+  
+  </head>
+<body  ng-controller="TodoCtrl">
+
+
+<script>
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: 'Revenue per week',
+            floating: true,
+            align: 'right',
+            verticalAlign: 'top',
+			x: 0,
+            y: -2,
+        },
+        legend: {
+            symbolWidth: 5,
+            symbolHeight: 5,
+            symbolRadius: 2
+        },
+        xAxis: {
+            categories: ['Week 47','Week 48', 'Week 49', 'Week 50', 'Week 51', 'Week 52'],
+            tickmarkPlacement: 'on',
+            labels: {
+                align: 'right'
+            },
+            min: 1,
+            max: 4.7,
+        },
+        yAxis: {
+            title: {
+                text: '$',
+                rotation: 0,
+                align: 'low',
+                x: 30
+            },
+            labels: {
+                formatter: function () {
+                    return this.value;
+                },
+                x: -10,
+                y: 10
+            },
+            tickPosition: 'outside',
+            tickLength: 1,
+            tickInterval: 500,
+            showFirstLabel: false
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.x + ': ' + this.y;
+            }
+        },
+        plotOptions: {
+            area: {
+                fillOpacity: 1.,
+                lineWidth: 3,
+                marker: {
+                    lineWidth: 3,
+                    lineColor: 'white'
+                }
+            },
+
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'NetComp',
+            data: [440, 500, 560, 620, 760, 200],
+            color: '#ED6e37',
+            fillColor: '#E7F6FF'
+  
+        },{
+            name: 'AnalizerHR',
+            data: [350, 400, 450, 490, 620, 150],
+            color: '#259E01',
+            fillColor: '#E7F6FF'
+        },{
+            name: 'Question Right',
+            data: [290, 320, 350, 370, 390, 80],
+            color: '#15A0C8',
+            fillColor: 'white'
+        }]
+    });
+
+    $('#container3').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+			useHTML: true,
+            text: '' ,
+            align: 'left',
+            width: '100%',
+            backgroundColor: 'red',
+            style: {
+            //'background-color': 'blue'
+            }
+        },
+         subtitle: {
+            text: 'Instalations per day',
+            floating: true,
+            align: 'right',
+            verticalAlign: 'top',
+			x: 0,
+            y: -2,
+        },
+		legend: {
+            symbolWidth: 5,
+            symbolHeight: 5,
+            symbolRadius: 2,
+
+        },
+ 		xAxis: {
+            categories: ['todos[0].timestamp,todos[1].timestamp,todos[2].timestamp'],
+			 useHTML: true,
+			 dataSrc:('data/todos.json'),
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            }
+        },
+         tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} units</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.3,
+                borderWidth: 0
+            }
+        },
+         series: [{
+            name: '{{todos[0].done}}',
+            data: [4, 7, 6, 5, 4],
+            color: '#ED6e37'
+        }, {
+            name: 'AnalizerHR',
+            data: [3, 7, 9, 9, 9],
+            color: '#259E01'
+        }, {
+            name: 'Question Right',
+            data: [4, 3, 5, 3, 3],
+            color: '#15A0C8'
+        }]
+    });	
+	
+	
+});	
+	
+
+
+ </script>
+
+
+	<div class="container">
+		<div class="symbol_field">
+			<div class="symbol_field2">
+				<font class="symbol_position_dollar">$</font>
+			</div>
+		</div>
+		<div class="row">
+			<div class="ArticleBox_header">
+				Revenue by Solution
+			</div>
+			<div class="col-md-9 col-sm-9 col-xs-9" style="margin-left: 0">
+				<div id="container"  style="margin-top:15px; width:100%; height:200px"></div>
+			</div>
+			<div class="col-md-3 col-sm-3 col-xs-3">
+				<div class="summary_div">
+					<div class="summary_description2">
+						Revenue Stream
+					</div>
+					<div class="summary_description">
+						<i class="fa fa-usd"></i>
+					</div>
+					<h1>32,556</h1>
+				</div>
+				<div class="button_div">
+					<a href=#" class="btn btn-primary" >Revenue Analysis</a>
+				</div>
+		  </div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="symbol_field">
+			<div class="symbol_field2">
+				<div class="symbol_bg">
+					<font class="symbol_position_download">
+						<i class="fa fa-arrow-down"></i>
+					</font>
+				</div>
+			</div>
+		</div>
+			<div class="row">
+				<div class="ArticleBox_header">
+					Installations
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-9" style="margin-left: 0">
+					<div id="container3"  style="margin-top:15px; width:100%; height:200px"></div>
+				 </div>
+				<div class="col-md-3 col-sm-3 col-xs-3">
+					<div class="summary_div">
+						<div class="summary_description2">
+							Installations
+						</div>
+						<h1>136</h1>
+					</div>
+					<div class="button_div">
+						<a href=#" class="btn btn-primary" >View installations</a>
+					</div>
+		  </div>
+		</div>
+	</div>
+	<br />
+	
+	
+proba pobrania danych z pliku data2.JSON 
+<br />
+{{todos[1].timestamp}}
+<br />
+{{todos[0].companies[0].name}}
+<br />
+{{todos[0].companies[0].data.Revenue}}
+<br />
+{{[todos[0].timestamp,todos[1].timestamp,todos[2].timestamp,todos[3].timestamp,todos[4].timestamp]}}
+
+
+</body>
+</html>
